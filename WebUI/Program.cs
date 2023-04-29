@@ -1,7 +1,15 @@
+using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ICategoryDal, EfCategoryDal>();
+builder.Services.AddSingleton<ICategoryService, CategoryManager>();
 
 var app = builder.Build();
 
