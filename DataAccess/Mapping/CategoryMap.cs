@@ -17,6 +17,7 @@ namespace DataAccess.Mapping
             builder.HasKey(c => c.CategoryId);
             builder.Property(c => c.CategoryId).UseIdentityColumn(1, 1);
             builder.Property(c => c.CategoryName).HasColumnType("varchar").HasMaxLength(50);
+            builder.Property(c => c.CategoryState).HasColumnType("bit");
             builder.HasMany(c=>c.Books).WithOne(b=>b.Category).HasForeignKey(b=>b.CategoryId).HasPrincipalKey(c=>c.CategoryId);
          
         }

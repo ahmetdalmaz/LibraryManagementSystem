@@ -18,13 +18,6 @@ namespace WebUI.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            var data = _categoryService.GetAll();
-            return View(data);
-        }
-
        
     }
 }

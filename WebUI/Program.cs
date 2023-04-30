@@ -11,6 +11,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<ICategoryDal, EfCategoryDal>();
 builder.Services.AddSingleton<ICategoryService, CategoryManager>();
 
+builder.Services.AddSingleton<IAuthorDal, EfAuthorDal>();
+builder.Services.AddSingleton<IAuthorService, AuthorManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

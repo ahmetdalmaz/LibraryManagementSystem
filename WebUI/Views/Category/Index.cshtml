@@ -1,0 +1,109 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Entities.Concrete
+@model List<Category>
+
+<h4 class="fw-bold py-3 mb-4">Kategoriler</h4>
+<div class="card">
+    <h5 class="card-header">Kategori Listesi</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kategori Adı</th>
+                    <th>Durumu</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CategoryName</td>
+                        @if(item.CategoryState == true)
+                        {
+                            <td><span class="badge bg-label-success me-1">Etkin</span></td>
+                        }
+                        else
+                        {
+                            <td><span class="badge bg-label-danger me-1">Devredışı</span></td>
+                        }
+                      
+                            
+                        
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateModal"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <form asp-action="Delete" asp-controller="Category" method="post">
+                                        <input type="hidden" name="categoryId" value="@item.CategoryId">
+                                        <button class="dropdown-item" type="submit"><i class="bx bx-trash me-2"></i>Delete</button>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+                
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+<div class="mt-3">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        Kategori Ekle
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Kategori Ekleme</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-action="Add" asp-controller="Category" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameBasic" class="form-label">Kategori Adı</label>
+                            <input type="text" id="nameBasic" name="CategoryName" class="form-control" placeholder="Kategori Adı">
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-3">
+                            <label for="defaultSelect" class="form-label">Kategori Durumu</label>
+
+                            <select id="defaultSelect" class="form-select" name="CategoryState">
+                                <option value="true">
+                                    Etkin
+                                </option>
+
+                                <option value="false">
+                                    Devredışı
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        Kapat
+                    </button>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -34,6 +34,9 @@ namespace DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar");
 
+                    b.Property<bool>("AuthorState")
+                        .HasColumnType("bit");
+
                     b.Property<string>("AuthorSurname")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -59,6 +62,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar");
+
+                    b.Property<bool>("BookState")
+                        .HasColumnType("bit");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -87,6 +93,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar");
+
+                    b.Property<bool>("CategoryState")
+                        .HasColumnType("bit");
 
                     b.HasKey("CategoryId");
 

@@ -18,7 +18,8 @@ namespace DataAccess.Mapping
             builder.Property(b => b.BookId).UseIdentityColumn(1, 1);
             builder.Property(b => b.BookName).HasColumnType("varchar").HasMaxLength(50);
             builder.Property(b=>b.PageCount).HasColumnType("int");
-           
+            builder.Property(b => b.BookState).HasColumnType("bit");
+
         }
     }
 }
