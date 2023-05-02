@@ -14,6 +14,9 @@ builder.Services.AddSingleton<ICategoryService, CategoryManager>();
 builder.Services.AddSingleton<IAuthorDal, EfAuthorDal>();
 builder.Services.AddSingleton<IAuthorService, AuthorManager>();
 
+builder.Services.AddSingleton<IBookDal, EfBookDal>();
+builder.Services.AddSingleton<IBookService, BookManager>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

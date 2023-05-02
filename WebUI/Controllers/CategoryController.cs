@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
@@ -16,7 +17,8 @@ namespace WebUI.Controllers
         public IActionResult Index()
         {
             var categories = _categoryService.GetAll();
-            return View(categories);
+            
+            return View(new CategoryListViewModel { Categories = categories});
         }
 
         [HttpPost]

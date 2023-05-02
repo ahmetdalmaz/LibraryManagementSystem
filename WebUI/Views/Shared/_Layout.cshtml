@@ -49,7 +49,12 @@
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+
     <script src="~/admin-template/assets/js/config.js"></script>
+    <script src="~/admin-template/assets/vendor/libs/jquery/jquery.js"></script>
+
+        
+
   </head>
 
   <body>
@@ -127,7 +132,7 @@
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
-                    <li class="menu-item active">
+                    <li class="menu-item">
                         <a href="/Home/Index" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Ana Sayfa</div>
@@ -315,7 +320,7 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="~/admin-template/assets/vendor/libs/jquery/jquery.js"></script>
+    
     <script src="~/admin-template/assets/vendor/libs/popper/popper.js"></script>
     <script src="~/admin-template/assets/vendor/js/bootstrap.js"></script>
     <script src="~/admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -333,5 +338,10 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script>
+        
+        $('aside#layout-menu ul.menu-inner li.menu-item a.menu-link[href = "' + window.location.pathname + '"]').parent().addClass('active');
+    </script>
+
 </body>
 </html>

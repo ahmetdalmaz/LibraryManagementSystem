@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Utilities;
+using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -20,6 +22,7 @@ namespace Business.Concrete
 
         public void Add(Category category)
         {
+             ValidationTool.Validate(new CategoryValidator(),category);
             _categoryDal.Add(category);
         }
 
