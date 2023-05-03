@@ -19,6 +19,39 @@ namespace WebUI.Controllers
             return View(authors);
         }
 
+        public IActionResult Edit(int id)
+        {
+            Author author = _authorService.GetById(id);
+            return View(author);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Author author)
+        {
+            Author authorForUpdate = _authorService.GetById(author.AuthorId);
+            authorForUpdate.AuthorState = author.AuthorState;
+            authorForUpdate.AuthorName = author.AuthorName;
+            authorForUpdate.AuthorSurname = author.AuthorSurname;
+
+            _authorService.Update(authorForUpdate);
+            return RedirectToAction("Index");
+        }
+
+
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Author author)
+        {
+            _authorService.Add(author);
+            return RedirectToAction("Index");
+        }
+
+
         [HttpPost]
         public IActionResult Delete(int authorId)
         {

@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+
+<h4 class="fw-bold py-3 mb-4">Yazarlar</h4>
+
+<div class="card mb-4 w-75 mx-auto">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Yazar Ekle</h5>
+        <small class="text-muted float-end">Default label</small>
+    </div>
+    <div class="card-body">
+        <form asp-action="Add" asp-controller="Author" method="post">
+            <div class="mb-3">
+                <label class="form-label" for="authorName">Yazar İsmi</label>
+                <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Yazar İsmi">
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="authorSurname">Yazar Soyadı</label>
+                <input type="text" class="form-control" id="authorSurname" name="authorSurname" placeholder="Yazar Soyadı">
+            </div>
+
+            <div class="mb-3">
+                <label for="authorState" class="form-label">Yazar Durumu</label>
+                <select class="form-select" id="authorState" name="authorState" aria-label="Yazar Durumu">
+                    <option value="true">Etkin</option>
+                    <option value="false">Devredışı</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </form>
+    </div>
+</div>

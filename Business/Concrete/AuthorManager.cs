@@ -37,5 +37,10 @@ namespace Business.Concrete
         {
             return _authorDal.Get(a=>a.AuthorId == id);
         }
+
+        public void Update(Author author)
+        {
+            _authorDal.Update(author);
+        }
     }
 }

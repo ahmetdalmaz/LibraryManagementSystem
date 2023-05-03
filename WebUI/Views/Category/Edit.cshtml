@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Edit";
+}
+@model Category
+
+<h4 class="fw-bold py-3 mb-4">Kategoriler</h4>
+
+<div class="card mb-4 w-75 mx-auto">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Kategori Güncelle</h5>
+        <small class="text-muted float-end">Default label</small>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" asp-controller="Category" method="post">
+            <div class="mb-3">
+                <label class="form-label" for="categoryName">Kategori İsmi</label>
+                <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Kategori İsmi" asp-for="CategoryName">
+            </div>
+
+            <div class="mb-3">
+                <label for="categoryState" class="form-label">Kategori Durumu</label>
+                <select class="form-select" id="categoryState" name="CategoryState" aria-label="Kategori Durumu" asp-for="CategoryState">
+                    <option value="true">Etkin</option>
+                    <option value="false">Devredışı</option>
+                </select>
+            </div>
+            <input type="hidden" asp-for="CategoryId" />
+
+            <button type="submit" class="btn btn-primary">Güncelle</button>
+        </form>
+    </div>
+</div>
+
+
+

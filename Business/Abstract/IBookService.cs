@@ -13,5 +13,6 @@ namespace Business.Abstract
         List<Book> GetAll();
         void Delete(Book book);
         Book GetById(int id);
+        void Update(Book book);
     }
 }

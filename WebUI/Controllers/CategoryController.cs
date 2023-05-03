@@ -21,8 +21,31 @@ namespace WebUI.Controllers
             return View(new CategoryListViewModel { Categories = categories});
         }
 
+        public IActionResult Edit(int id)
+        {
+            Category category = _categoryService.GetById(id);
+            return View(category);
+        }
+
         [HttpPost]
-        public IActionResult Add(Category category) 
+        public IActionResult Edit(Category category)
+        {
+            Category categoryForUpdate = _categoryService.GetById(category.CategoryId);
+            categoryForUpdate.CategoryState = category.CategoryState;
+            categoryForUpdate.CategoryName = category.CategoryName;
+            _categoryService.Update(categoryForUpdate);
+            return RedirectToAction("Index");
+        }
+
+
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Add(Category category)
         {
             _categoryService.Add(category);
             return RedirectToAction("Index");

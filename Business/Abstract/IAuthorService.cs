@@ -13,6 +13,7 @@ namespace Business.Abstract
         List<Author> GetAll();
         void Delete(Author author);
         Author GetById(int id);
+        void Update(Author author);
 
     }
 }

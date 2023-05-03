@@ -37,5 +37,10 @@ namespace Business.Concrete
         {
             return _bookDal.Get(b=>b.BookId == id); 
         }
+
+        public void Update(Book book)
+        {
+            _bookDal.Update(book);
+        }
     }
 }
