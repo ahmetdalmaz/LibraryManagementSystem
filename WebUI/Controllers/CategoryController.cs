@@ -47,8 +47,16 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult Add(Category category)
         {
-            _categoryService.Add(category);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _categoryService.Add(category);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Add",category);
+            }
+            
         }
 
         [HttpPost]

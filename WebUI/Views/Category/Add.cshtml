@@ -1,9 +1,12 @@
 ﻿@{
     ViewData["Title"] = "Add";
 }
+@model Category
 
 <h4 class="fw-bold py-3 mb-4">Kategoriler</h4>
 
+<div asp-validation-summary="ModelOnly">
+</div>
 <div class="card mb-4 w-75 mx-auto">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Kategori Ekle</h5>
@@ -13,6 +16,7 @@
             <div class="mb-3">
                 <label class="form-label" for="categoryName">Kategori İsmi</label>
                 <input type="text" class="form-control" id="categoryName" name="categoryName" placeholder="Kategori İsmi">
+                <span class="text-danger" asp-validation-for="CategoryName"></span>
             </div>
 
             <div class="mb-3">

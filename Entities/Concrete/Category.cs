@@ -12,7 +12,7 @@ namespace Entities.Concrete
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public bool CategoryState { get; set; }
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<Book>? Books { get; set; }
 
     }
 }

@@ -1,13 +1,25 @@
 using Business.Abstract;
 using Business.Concrete;
+using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Entities.Concrete;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddFluentValidationAutoValidation(config =>
+{
+    config.DisableDataAnnotationsValidation = true;
+});
+
+builder.Services.AddScoped<IValidator<Category>,CategoryValidator>();
+
 builder.Services.AddSingleton<ICategoryDal, EfCategoryDal>();
 builder.Services.AddSingleton<ICategoryService, CategoryManager>();
 

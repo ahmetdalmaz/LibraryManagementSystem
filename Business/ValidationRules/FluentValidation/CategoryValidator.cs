@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    internal class CategoryValidator : AbstractValidator<Category>
+    public class CategoryValidator : AbstractValidator<Category>
     {
         public CategoryValidator() 
         { 
-            RuleFor(c=>c.CategoryName).NotEmpty().MinimumLength(2);
+            RuleFor(c=>c.CategoryName).NotEmpty().WithMessage("Bu Alan Boş Geçilemez").MinimumLength(2).WithMessage("Kategori Adı en az iki karakter olabilir");
+            RuleFor(c => c.Books).Empty();
         }
     }
 }
