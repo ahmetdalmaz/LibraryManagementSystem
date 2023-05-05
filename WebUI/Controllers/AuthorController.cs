@@ -28,13 +28,20 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult Edit(Author author)
         {
-            Author authorForUpdate = _authorService.GetById(author.AuthorId);
-            authorForUpdate.AuthorState = author.AuthorState;
-            authorForUpdate.AuthorName = author.AuthorName;
-            authorForUpdate.AuthorSurname = author.AuthorSurname;
-
-            _authorService.Update(authorForUpdate);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                Author authorForUpdate = _authorService.GetById(author.AuthorId);
+                authorForUpdate.AuthorState = author.AuthorState;
+                authorForUpdate.AuthorName = author.AuthorName;
+                authorForUpdate.AuthorSurname = author.AuthorSurname;
+                _authorService.Update(authorForUpdate);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Edit", author);
+            }
+            
         }
 
 
@@ -47,8 +54,15 @@ namespace WebUI.Controllers
         [HttpPost]
         public IActionResult Add(Author author)
         {
-            _authorService.Add(author);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _authorService.Add(author);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("Add", author);
+            }
         }
 
 

@@ -6,6 +6,7 @@ using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddFluentValidationAutoValidation(config =>
 });
 
 builder.Services.AddScoped<IValidator<Category>,CategoryValidator>();
+builder.Services.AddScoped<IValidator<Author>,AuthorValidator>();
 
 builder.Services.AddSingleton<ICategoryDal, EfCategoryDal>();
 builder.Services.AddSingleton<ICategoryService, CategoryManager>();

@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Business.Abstract
         void Delete(Book book);
         Book GetById(int id);
         void Update(Book book);
+        List<BookDetailDto> GetBookDetails();
     }
 }

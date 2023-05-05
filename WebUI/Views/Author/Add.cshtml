@@ -1,8 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Add";
 }
+@model Author
 
 <h4 class="fw-bold py-3 mb-4">Yazarlar</h4>
+<div asp-validation-summary="ModelOnly">
+</div>
 
 <div class="card mb-4 w-75 mx-auto">
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -14,10 +17,12 @@
             <div class="mb-3">
                 <label class="form-label" for="authorName">Yazar İsmi</label>
                 <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Yazar İsmi">
+                <span class="text-danger" asp-validation-for="AuthorName"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="authorSurname">Yazar Soyadı</label>
                 <input type="text" class="form-control" id="authorSurname" name="authorSurname" placeholder="Yazar Soyadı">
+                <span class="text-danger" asp-validation-for="AuthorSurname"></span>
             </div>
 
             <div class="mb-3">

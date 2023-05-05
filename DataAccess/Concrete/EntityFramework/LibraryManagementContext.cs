@@ -16,6 +16,10 @@ namespace DataAccess.Concrete.EntityFramework
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=LibraryManagement;Integrated Security=True;");
         }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Book { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryMap());
