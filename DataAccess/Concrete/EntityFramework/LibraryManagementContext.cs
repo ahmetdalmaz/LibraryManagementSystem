@@ -1,4 +1,4 @@
-﻿using DataAccess.Mapping;
+﻿using DataAccess.EntityConfigurations;
 using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;

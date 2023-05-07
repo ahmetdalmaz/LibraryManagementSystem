@@ -18,11 +18,13 @@ namespace DataAccess.Concrete.EntityFramework
                 var books = from book in context.Book join category in context.Categories on book.CategoryId equals category.CategoryId join author in context.Authors on book.AuthorId equals author.AuthorId select new BookDetailDto
                 {
                     BookId = book.BookId,
+                    AuthorId = book.AuthorId,
                     AuthorName = author.AuthorName,
                     BookName = book.BookName,
+                    CategoryId = book.CategoryId,
                     CategoryName = category.CategoryName,
                     BookState = book.BookState,
-                    PageCount = book.PageCount
+                    PageCount = book.PageCount,
                 };
                 return books.ToList();
             }

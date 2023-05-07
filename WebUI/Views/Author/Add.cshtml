@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Add";
 }
-@model Author
+@model AuthorModel
 
 <h4 class="fw-bold py-3 mb-4">Yazarlar</h4>
 <div asp-validation-summary="ModelOnly">
@@ -16,18 +16,18 @@
         <form asp-action="Add" asp-controller="Author" method="post">
             <div class="mb-3">
                 <label class="form-label" for="authorName">Yazar İsmi</label>
-                <input type="text" class="form-control" id="authorName" name="authorName" placeholder="Yazar İsmi">
+                <input type="text" class="form-control" asp-for="AuthorName" placeholder="Yazar İsmi">
                 <span class="text-danger" asp-validation-for="AuthorName"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="authorSurname">Yazar Soyadı</label>
-                <input type="text" class="form-control" id="authorSurname" name="authorSurname" placeholder="Yazar Soyadı">
+                <input type="text" class="form-control" asp-for="AuthorSurname" placeholder="Yazar Soyadı">
                 <span class="text-danger" asp-validation-for="AuthorSurname"></span>
             </div>
 
             <div class="mb-3">
                 <label for="authorState" class="form-label">Yazar Durumu</label>
-                <select class="form-select" id="authorState" name="authorState" aria-label="Yazar Durumu">
+                <select class="form-select" asp-for="AuthorState" aria-label="Yazar Durumu">
                     <option value="true">Etkin</option>
                     <option value="false">Devredışı</option>
                 </select>

@@ -1,13 +1,9 @@
 ﻿using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Entities.DTOs;
 
-namespace Entities.DTOs
+namespace WebUI.Models
 {
-    public class BookDetailDto:IDto
+    public class BookModel
     {
         public int BookId { get; set; }
         public int CategoryId { get; set; }
@@ -17,10 +13,8 @@ namespace Entities.DTOs
         public string BookName { get; set; }
         public int PageCount { get; set; }
         public bool BookState { get; set; }
-
         public List<Category> Categories { get; set; }
         public List<Author> Authors { get; set; }
-
 
     }
 }

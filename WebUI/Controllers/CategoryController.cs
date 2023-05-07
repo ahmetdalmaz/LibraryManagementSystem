@@ -1,5 +1,8 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using WebUI.Models;
 
@@ -8,31 +11,42 @@ namespace WebUI.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
-
-        public CategoryController(ICategoryService categoryService)
+        private readonly IMapper _mapper;
+        private readonly IValidator<Category> _validator;
+        public CategoryController(ICategoryService categoryService, IValidator<Category> validator, IMapper mapper)
         {
             _categoryService = categoryService;
+            _validator = validator;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var categories = _categoryService.GetAll();
-            
-            return View(new CategoryListViewModel { Categories = categories});
+            var categoryModel = _mapper.Map<List<CategoryModel>>(categories);
+            return View(categoryModel);
         }
 
         public IActionResult Edit(int id)
         {
             Category category = _categoryService.GetById(id);
-            return View(category);
+            CategoryModel model = _mapper.Map<CategoryModel>(category);
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(CategoryModel categoryModel)
         {
-            Category categoryForUpdate = _categoryService.GetById(category.CategoryId);
-            categoryForUpdate.CategoryState = category.CategoryState;
-            categoryForUpdate.CategoryName = category.CategoryName;
+            Category category = _mapper.Map<Category>(categoryModel);
+            var result = _validator.Validate(category);
+            if (!result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+                return View(categoryModel);
+
+            }
+            Category categoryForUpdate = _categoryService.GetById(categoryModel.CategoryId);
+            categoryForUpdate = _mapper.Map<Category>(categoryModel);
             _categoryService.Update(categoryForUpdate);
             return RedirectToAction("Index");
         }
@@ -45,18 +59,19 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Category category)
+        public IActionResult Add(CategoryModel categoryModel)
         {
-            if (ModelState.IsValid)
+            Category category = _mapper.Map<Category>(categoryModel);
+            var result = _validator.Validate(category);
+
+            if (!result.IsValid)
             {
-                _categoryService.Add(category);
-                return RedirectToAction("Index");
+                result.AddToModelState(ModelState);
+                return View(categoryModel);
+                
             }
-            else
-            {
-                return View("Add",category);
-            }
-            
+            _categoryService.Add(category);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

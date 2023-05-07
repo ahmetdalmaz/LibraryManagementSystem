@@ -1,47 +1,56 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class AuthorController : Controller
     {
         private readonly IAuthorService _authorService;
+        private readonly IValidator<Author> _validator;
+        private readonly IMapper _mapper;
 
-        public AuthorController(IAuthorService authorService)
+        public AuthorController(IAuthorService authorService, IValidator<Author> validator, IMapper mapper)
         {
             _authorService = authorService;
+            _validator = validator;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var authors = _authorService.GetAll();
-            return View(authors);
+            var authorModel = _mapper.Map<List<AuthorModel>>(authors);
+            return View(authorModel);
         }
 
         public IActionResult Edit(int id)
         {
             Author author = _authorService.GetById(id);
-            return View(author);
+            AuthorModel model = _mapper.Map<AuthorModel>(author);
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(Author author)
+        public IActionResult Edit(AuthorModel model)
         {
-            if (ModelState.IsValid)
+            Author author = _mapper.Map<Author>(model);
+            var result = _validator.Validate(author);
+
+            if (!result.IsValid)
             {
-                Author authorForUpdate = _authorService.GetById(author.AuthorId);
-                authorForUpdate.AuthorState = author.AuthorState;
-                authorForUpdate.AuthorName = author.AuthorName;
-                authorForUpdate.AuthorSurname = author.AuthorSurname;
-                _authorService.Update(authorForUpdate);
-                return RedirectToAction("Index");
+                result.AddToModelState(this.ModelState);
+                return View(model);
             }
-            else
-            {
-                return View("Edit", author);
-            }
-            
+            Author authorForUpdate = _authorService.GetById(model.AuthorId);
+            authorForUpdate = _mapper.Map<Author>(model);
+            _authorService.Update(authorForUpdate);
+            return RedirectToAction("Index");
+
         }
 
 
@@ -52,17 +61,20 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Author author)
+        public IActionResult Add(AuthorModel model)
         {
-            if (ModelState.IsValid)
+            Author author = _mapper.Map<Author>(model);
+
+            var result = _validator.Validate(author);
+
+            if (!result.IsValid)
             {
-                _authorService.Add(author);
-                return RedirectToAction("Index");
+                result.AddToModelState(this.ModelState);
+                return View(model);
             }
-            else
-            {
-                return View("Add", author);
-            }
+            _authorService.Add(author);
+            return RedirectToAction("Index");
+
         }
 
 

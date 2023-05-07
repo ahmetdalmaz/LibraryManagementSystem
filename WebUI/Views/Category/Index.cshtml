@@ -4,7 +4,7 @@
 @{
 }
 @using Entities.Concrete
-@model CategoryListViewModel
+@model List<CategoryModel>
 
 <h4 class="fw-bold py-3 mb-4">Kategoriler</h4>
 <div class="card">
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach (var item in Model.Categories)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.CategoryName</td>

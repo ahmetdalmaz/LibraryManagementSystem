@@ -1,28 +1,48 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
     public class BookController : Controller
     {
         private readonly IBookService _bookService;
+        private readonly IAuthorService _authorService;
+        private readonly ICategoryService _categoryService;
+        private readonly IValidator<Book> _validator;
+        private readonly IMapper _mapper;
 
-        public BookController(IBookService bookService)
+        public BookController(IBookService bookService,IAuthorService authorService,ICategoryService categoryService, IValidator<Book> validator, IMapper mapper)
         {
             _bookService = bookService;
+            _authorService = authorService;
+            _categoryService = categoryService;
+            _validator = validator;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
             var books = _bookService.GetBookDetails();
-            return View(books);
+            List<BookModel> model = _mapper.Map<List<BookModel>>(books);
+            
+            return View(model);
         }
 
         public IActionResult Edit(int id)
         {
-            Book book = _bookService.GetById(id);
-            return View(book);
+            BookModel model = new BookModel()
+            {
+             
+                Authors = _authorService.GetAll(),
+                Categories = _categoryService.GetAll()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -33,6 +53,9 @@ namespace WebUI.Controllers
                 Book bookForUpdate = _bookService.GetById(book.BookId);
                 bookForUpdate.BookState = book.BookState;
                 bookForUpdate.BookName = book.BookName;
+                bookForUpdate.AuthorId = book.AuthorId;
+                bookForUpdate.CategoryId = book.CategoryId;
+                bookForUpdate.PageCount = book.PageCount;
                 _bookService.Update(bookForUpdate);
                 return RedirectToAction("Index");
             }
@@ -47,7 +70,8 @@ namespace WebUI.Controllers
 
         public IActionResult Add()
         {
-            return View();
+            BookModel bookDetailListViewModel = new BookModel() { Authors = _authorService.GetAll(), Categories = _categoryService.GetAll()};
+            return View(bookDetailListViewModel);
         }
 
         [HttpPost]
@@ -56,11 +80,15 @@ namespace WebUI.Controllers
             if (ModelState.IsValid)
             {
                 _bookService.Add(book);
+  
                 return RedirectToAction("Index");
             }
             else
             {
-                return View("Add", book);
+                return View(new BookModel {
+                    Authors = _authorService.GetAll(),
+                    Categories = _categoryService.GetAll()
+                });
             }
         }
 

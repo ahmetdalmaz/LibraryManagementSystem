@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Mapping
+namespace DataAccess.EntityConfigurations
 {
     public class BookMap : IEntityTypeConfiguration<Book>
     {
