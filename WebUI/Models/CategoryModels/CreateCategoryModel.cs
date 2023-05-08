@@ -1,10 +1,8 @@
-﻿namespace WebUI.Models
+﻿namespace WebUI.Models.CategoryModels
 {
-    public class CategoryModel
+    public class CreateCategoryModel
     {
-        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public bool CategoryState { get; set; }
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Concrete;
-using WebUI.Models;
+using WebUI.Models.CategoryModels;
 
 namespace WebUI.MappingProfiles
 {
@@ -9,6 +9,8 @@ namespace WebUI.MappingProfiles
         public CategoryProfile()
         {
             CreateMap<CategoryModel, Category>().ReverseMap();
+            CreateMap<CreateCategoryModel, Category>().ReverseMap();
+            CreateMap<UpdateCategoryModel, Category>().ReverseMap();
         }
 
     }

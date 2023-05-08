@@ -4,7 +4,7 @@ using Entities.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using WebUI.Models;
+using WebUI.Models.CategoryModels;
 
 namespace WebUI.Controllers
 {
@@ -30,12 +30,12 @@ namespace WebUI.Controllers
         public IActionResult Edit(int id)
         {
             Category category = _categoryService.GetById(id);
-            CategoryModel model = _mapper.Map<CategoryModel>(category);
+            UpdateCategoryModel model = _mapper.Map<UpdateCategoryModel>(category);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(CategoryModel categoryModel)
+        public IActionResult Edit(UpdateCategoryModel categoryModel)
         {
             Category category = _mapper.Map<Category>(categoryModel);
             var result = _validator.Validate(category);
@@ -59,7 +59,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(CategoryModel categoryModel)
+        public IActionResult Add(CreateCategoryModel categoryModel)
         {
             Category category = _mapper.Map<Category>(categoryModel);
             var result = _validator.Validate(category);

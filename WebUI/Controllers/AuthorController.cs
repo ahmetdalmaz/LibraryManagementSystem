@@ -4,7 +4,7 @@ using Entities.Concrete;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using WebUI.Models;
+using WebUI.Models.AuthorModels;
 
 namespace WebUI.Controllers
 {
@@ -31,12 +31,12 @@ namespace WebUI.Controllers
         public IActionResult Edit(int id)
         {
             Author author = _authorService.GetById(id);
-            AuthorModel model = _mapper.Map<AuthorModel>(author);
+            UpdateAuthorModel model = _mapper.Map<UpdateAuthorModel>(author);
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(AuthorModel model)
+        public IActionResult Edit(UpdateAuthorModel model)
         {
             Author author = _mapper.Map<Author>(model);
             var result = _validator.Validate(author);
@@ -61,7 +61,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(AuthorModel model)
+        public IActionResult Add(CreateAuthorModel model)
         {
             Author author = _mapper.Map<Author>(model);
 

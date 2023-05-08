@@ -3,8 +3,11 @@ using Business.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using WebUI.Models;
+using WebUI.Models.AuthorModels;
+using WebUI.Models.BookModels;
+using WebUI.Models.CategoryModels;
 
 namespace WebUI.Controllers
 {
@@ -32,64 +35,60 @@ namespace WebUI.Controllers
             
             return View(model);
         }
-
+        
         public IActionResult Edit(int id)
         {
-            BookModel model = new BookModel()
-            {
-             
-                Authors = _authorService.GetAll(),
-                Categories = _categoryService.GetAll()
-            };
-
+            Book book = _bookService.GetById(id);
+            UpdateBookModel model = _mapper.Map<UpdateBookModel>(book);
+            model.Categories = _mapper.Map<List<CategoryModel>>(_categoryService.GetAll());
+            model.Authors = _mapper.Map<List<AuthorModel>>(_authorService.GetAll());
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Edit(Book book)
+        public IActionResult Edit(UpdateBookModel bookModel)
         {
-            if (ModelState.IsValid)
+            Book book = _mapper.Map<Book>(bookModel);
+            var result = _validator.Validate(book);
+            if (result.IsValid)
             {
-                Book bookForUpdate = _bookService.GetById(book.BookId);
-                bookForUpdate.BookState = book.BookState;
-                bookForUpdate.BookName = book.BookName;
-                bookForUpdate.AuthorId = book.AuthorId;
-                bookForUpdate.CategoryId = book.CategoryId;
-                bookForUpdate.PageCount = book.PageCount;
+                Book bookForUpdate = _bookService.GetById(bookModel.BookId);
+                bookForUpdate = _mapper.Map<Book>(bookModel);
                 _bookService.Update(bookForUpdate);
                 return RedirectToAction("Index");
             }
-            else
-            {
-                return View("Edit", book);
-            }
-
+            result.AddToModelState(ModelState);
+            bookModel.Categories = _mapper.Map<List<CategoryModel>>(_categoryService.GetAll());
+            bookModel.Authors = _mapper.Map<List<AuthorModel>>(_authorService.GetAll());
+            return View(bookModel);
         }
 
 
 
         public IActionResult Add()
         {
-            BookModel bookDetailListViewModel = new BookModel() { Authors = _authorService.GetAll(), Categories = _categoryService.GetAll()};
-            return View(bookDetailListViewModel);
+            CreateBookModel model = new CreateBookModel() { 
+                Categories = _mapper.Map<List<CategoryModel>>(_categoryService.GetAll()),
+                Authors = _mapper.Map<List<AuthorModel>>(_authorService.GetAll()),
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Add(Book book)
+        public IActionResult Add(CreateBookModel bookModel)
         {
-            if (ModelState.IsValid)
+            Book book = _mapper.Map<Book>(bookModel);
+            var result = _validator.Validate(book);
+
+            if (result.IsValid)
             {
                 _bookService.Add(book);
-  
                 return RedirectToAction("Index");
             }
-            else
-            {
-                return View(new BookModel {
-                    Authors = _authorService.GetAll(),
-                    Categories = _categoryService.GetAll()
-                });
-            }
+            result.AddToModelState(ModelState);
+            bookModel.Categories = _mapper.Map<List<CategoryModel>>(_categoryService.GetAll());
+            bookModel.Authors = _mapper.Map<List<AuthorModel>>(_authorService.GetAll());
+            return View(bookModel);
         }
 
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.Concrete;
-using WebUI.Models;
+using WebUI.Models.AuthorModels;
 
 namespace WebUI.MappingProfiles
 {
@@ -9,6 +9,8 @@ namespace WebUI.MappingProfiles
         public AuthorProfile()
         {
             CreateMap<AuthorModel, Author>().ReverseMap();
+            CreateMap<CreateAuthorModel, Author>().ReverseMap();
+            CreateMap<UpdateAuthorModel, Author>().ReverseMap();
         }
     }
 }
