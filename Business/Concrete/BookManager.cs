@@ -22,6 +22,7 @@ namespace Business.Concrete
         public void Add(Book book)
         {
             _bookDal.Add(book);
+
         }
 
         public void Delete(Book book)

@@ -19,12 +19,16 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Category> Categories { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Book> Book { get; set; }
+        public DbSet<Member> Members { get; set; }
+        public DbSet<BookTransaction> BookTransactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CategoryMap());
             modelBuilder.ApplyConfiguration(new AuthorMap());
             modelBuilder.ApplyConfiguration(new BookMap());
+            modelBuilder.ApplyConfiguration(new MemberMap());
+            modelBuilder.ApplyConfiguration(new BookTransactionMap());
         }
     }
 }

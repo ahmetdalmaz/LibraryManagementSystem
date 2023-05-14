@@ -1,0 +1,20 @@
+﻿using Entities.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Business.Abstract
+{
+    public interface IMemberService
+    {
+        void Add(Member member);
+        List<Member> GetAll();
+        void Delete(Member member);
+        Member GetById(int id);
+        void Update(Member member);
+
+
+    }
+}

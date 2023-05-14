@@ -20,6 +20,7 @@ namespace DataAccess.EntityConfigurations
             builder.Property(b=>b.PageCount).HasColumnType("int");
             builder.Property(b => b.BookState).HasColumnType("bit");
 
+            builder.HasMany(b => b.BookTransactions).WithOne(bt => bt.Book).HasForeignKey(bt => bt.BookId).HasPrincipalKey(b => b.BookId);
         }
     }
 }
