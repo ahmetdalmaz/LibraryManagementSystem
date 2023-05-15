@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+@using WebUI.Models.MemberModels
+@model CreateMemberModel
+
+<h4 class="fw-bold py-3 mb-4">Üyeler</h4>
+
+<div asp-validation-summary="ModelOnly">
+</div>
+<div class="card mb-4 w-75 mx-auto">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Üye Ekle</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="Add" asp-controller="Member" method="post">
+            <div class="mb-3">
+                <label class="form-label" for="categoryName">Üye Adı</label>
+                <input type="text" class="form-control" asp-for="MemberName" placeholder="Üye Adı">
+                <span class="text-danger" asp-validation-for="MemberName"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="categoryName">Üye Soyadı</label>
+                <input type="text" class="form-control" asp-for="MemberSurname" placeholder="Üye Soyadı">
+                <span class="text-danger" asp-validation-for="MemberSurname"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="categoryName">Üye Email</label>
+                <input type="text" class="form-control" asp-for="MemberEmail" placeholder="Email Adresi">
+                <span class="text-danger" asp-validation-for="MemberEmail"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="categoryName">Telefon Numarası</label>
+                <input type="text" class="form-control" asp-for="MemberPhoneNumber" placeholder="Telefon Numarası">
+                <span class="text-danger" asp-validation-for="MemberPhoneNumber"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="categoryState" class="form-label">Üye Durumu</label>
+                <select class="form-select" asp-for="MemberState" aria-label="Üye Durumu">
+                    <option value="true">Etkin</option>
+                    <option value="false">Devredışı</option>
+                </select>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </form>
+    </div>
+</div>
+
+
