@@ -35,6 +35,9 @@ builder.Services.AddSingleton<IBookService, BookManager>();
 builder.Services.AddSingleton<IMemberDal, EfMemberDal>();
 builder.Services.AddSingleton<IMemberService, MemberManager>();
 
+builder.Services.AddSingleton<IBookTransactionDal, EfBookTransactionDal>();
+builder.Services.AddSingleton<IBookTransactionService, BookTransactionManager>();
+
 
 var app = builder.Build();
 

@@ -16,7 +16,7 @@ namespace Entities.Concrete
         public int MemberId { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime DueDate { get; set; }
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
 
     }
 }

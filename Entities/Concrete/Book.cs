@@ -15,6 +15,7 @@ namespace Entities.Concrete
         public Author Author { get; set; }
         public int AuthorId { get; set; }
         public string BookName { get; set; }
+        public string ISBN { get;set;}
         public int PageCount { get; set; }
         public bool BookState { get; set; }
         public virtual IEnumerable<BookTransaction> BookTransactions { get; set; }

@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using WebUI.Models.BookTransactionModels
+@model List<BookTransactionModel>
+
+<h4 class="fw-bold py-3 mb-4">Kitap Hareketleri</h4>
+<div class="card">
+    <h5 class="card-header">Kitap Hareket Listesi</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kitap Adı</th>
+                    <th>ISBN</th>
+                    <th>Üye Adı/Soyadı</th>
+                    <th>Üye Email</th>
+                    <th>Veriliş Tarihi</th>
+                    <th>Bitiş Tarihi</th>
+                    <th>Teslim Tarihi</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.BookName</td>
+                        <td>@item.ISBN</td>
+                        <td>@item.MemberName</td>
+                        <td>@item.MemberEmail</td>
+                        <td>@item.IssueDate.ToShortDateString()</td>
+                        <td>@item.DueDate.ToShortDateString()</td>
+
+                        @if (string.IsNullOrEmpty(item.ReturnDate.ToString()))
+                        {
+                            <td><span class="badge bg-label-danger me-1">Teslim Edilmedi</span></td>
+                        }
+                        else if (item.ReturnDate < item.DueDate)
+                        {
+                            <td>@item.ReturnDate</td>
+                            <td><span class="badge bg-label-success me-1">Teslim Etti</span></td>
+                        }
+                        else if(item.ReturnDate > item.DueDate)
+                        {
+                            <td>@item.ReturnDate</td>
+                            <td><span class="badge bg-label-warning me-1">Geç Teslim</span></td>
+                        }
+
+
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/BookTransaction/Edit/@item.BookTransactionId"><i class="bx bx-edit-alt me-2"></i> Edit</a>
+                                    <form asp-action="Delete" asp-controller="BookTransaction" method="post">
+                                        <input type="hidden" name="bookTransactionId" value="@item.BookTransactionId">
+                                        <button class="dropdown-item" type="submit"><i class="bx bx-trash me-2"></i>Delete</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

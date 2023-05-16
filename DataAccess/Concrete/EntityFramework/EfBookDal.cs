@@ -21,6 +21,7 @@ namespace DataAccess.Concrete.EntityFramework
                     AuthorId = book.AuthorId,
                     AuthorName = author.AuthorName,
                     BookName = book.BookName,
+                    ISBN = book.ISBN,
                     CategoryId = book.CategoryId,
                     CategoryName = category.CategoryName,
                     BookState = book.BookState,

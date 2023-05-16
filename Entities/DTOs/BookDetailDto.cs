@@ -15,6 +15,7 @@ namespace Entities.DTOs
         public int AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string BookName { get; set; }
+        public string ISBN { get; set; }
         public int PageCount { get; set; }
         public bool BookState { get; set; }
 

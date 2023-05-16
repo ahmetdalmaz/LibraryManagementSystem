@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities.DTOs
+﻿namespace WebUI.Models.BookTransactionModels
 {
-    public class BookTransactionDto:IDto
+    public class BookTransactionModel
     {
         public int BookTransactionId { get; set; }
         public string BookName { get; set; }
@@ -17,6 +11,5 @@ namespace Entities.DTOs
         public DateTime IssueDate { get; set; }
         public DateTime DueDate { get; set; }
         public DateTime? ReturnDate { get; set; }
-
     }
 }
